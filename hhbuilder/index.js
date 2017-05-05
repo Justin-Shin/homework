@@ -17,18 +17,15 @@ function Household() {
     delete this.members[number]
   }
 }
-
 function appendFamily(family, number){
   // Create the list item to append to the OL (that is already in HTML)
   var li = document.createElement("li")
   li.appendChild(document.createTextNode(`Age: ${family.age}; Relationship: ${family.relationship}; Smoker: ${family.smoker} `))
   var liMade = document.querySelector("ol").appendChild(li)
-
   // Add button to delete element to the list item
   var button = document.createElement("button")
   button.appendChild(document.createTextNode("delete"))
   var buttonMade = liMade.appendChild(button)
-
   // Event listener added after the DOM element is created.  Added here so scope
   // can ensure the correct list item is deleted when clicked
   buttonMade.addEventListener('click', function(event){
@@ -36,9 +33,7 @@ function appendFamily(family, number){
     document.querySelector("ol").removeChild(li);
     hshldObj.deleteMember(number)
   })
-
 }
-
 // This function should be invoked to get data that is inside the
 // form and return it, so any changes are always apparent
 // it should return an object
@@ -76,7 +71,6 @@ function verifyData(data){
     return false
   }
 }
-
 // Listener for clicking add, should check check for validity, get
 // data, and if valid add to the Household.
 addBtn.addEventListener('click', function(event){
@@ -92,7 +86,6 @@ addBtn.addEventListener('click', function(event){
     alert("Please enter valid data!")
   }
 });
-
 // Listener for clicking submit, should submit the data as a JSON
 // object
 sbmtBtn.addEventListener('click', function(event){
