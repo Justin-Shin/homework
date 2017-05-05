@@ -12,6 +12,7 @@ function Household() {
     appendFamily(member,this.num_members)
     this.num_members++
   }
+  // Deletes the member from the object
   this.deleteMember = function(number){
     delete this.members[number]
   }
@@ -21,14 +22,15 @@ function appendFamily(family, number){
   // Create the list item to append to the OL (that is already in HTML)
   var li = document.createElement("li")
   li.appendChild(document.createTextNode(`Age: ${family.age}; Relationship: ${family.relationship}; Smoker: ${family.smoker} `))
-  // li.setAttribute("class",`delete-${number}`)
   var liMade = document.querySelector("ol").appendChild(li)
 
+  // Add button to delete element to the list item
   var button = document.createElement("button")
   button.appendChild(document.createTextNode("delete"))
-  // button.setAttribute("class",`delete-${number}`)
   var buttonMade = liMade.appendChild(button)
 
+  // Event listener added after the DOM element is created.  Added here so scope
+  // can ensure the correct list item is deleted when clicked
   buttonMade.addEventListener('click', function(event){
     event.preventDefault()
     document.querySelector("ol").removeChild(li);
@@ -53,9 +55,15 @@ function getFormData(){
 }
 
 // This function will be used by the listener on the button for
-// submit
-function submit(){
-
+// submitting as JSON
+function submit(household){
+  // Need to add a valid URL, but I think this should work.
+  xrequest = new XMLHttpRequest()
+  var url = "url"
+  xrequest.open("POST", url, true)
+  xrequest.setRequestHeader("Content-type", "application/json")
+  var data = JSON.stringify(household)
+  xrequest.send(data)
 }
 
 // Used to verify the data- if it is valid, return the data as an
@@ -88,6 +96,8 @@ addBtn.addEventListener('click', function(event){
 // Listener for clicking submit, should submit the data as a JSON
 // object
 sbmtBtn.addEventListener('click', function(event){
-  //prevent reload
+  // Prevent reload
   event.preventDefault()
+  // Submit the stuff
+  submit(hshldObj)
 });
